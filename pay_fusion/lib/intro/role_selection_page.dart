@@ -6,7 +6,7 @@ class RoleSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF181A1B),
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           children: [
@@ -54,12 +54,13 @@ class _RoleButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF19C6AC),
+          backgroundColor: const Color(0xFF00FFD0), // Neon/turquoise
           foregroundColor: Colors.white,
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
+          elevation: 4,
         ),
         child: Text(text, textAlign: TextAlign.center),
       ),
