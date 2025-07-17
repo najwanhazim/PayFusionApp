@@ -29,7 +29,7 @@ class IntroPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Image.asset(
-                  'lib/img/intro.png',
+                  'assets/intro.png',
                   width: 240,
                   height: 240,
                   fit: BoxFit.contain,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../role_selection_page.dart';
+import 'package:pay_fusion/pages/intro/role_selection_page.dart';
 
 class IntroBusinessPage extends StatelessWidget {
   const IntroBusinessPage({Key? key, this.onNext}) : super(key: key);
@@ -29,7 +29,7 @@ class IntroBusinessPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Image.asset(
-                  'lib/img/intro_2.png',
+                  'assets/intro_2.png',
                   width: 240,
                   height: 240,
                   fit: BoxFit.contain,
@@ -38,7 +38,7 @@ class IntroBusinessPage extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Text(
-                    'Turn your stall, shop, or service into a fully digital business — in minutes.',
+                    'Turn your stall, shop, or service into a fully digital business — in minutes. Enjoy rebate and referral benefits.',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
