@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pay_fusion/enum/current_view_enum.dart';
+import 'package:pay_fusion/main.dart';
+import 'package:pay_fusion/navigation_bar/bottom_navigation_bar.dart';
 
 class RoleSelectionPage extends StatelessWidget {
-  const RoleSelectionPage({Key? key}) : super(key: key);
+  const RoleSelectionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +28,24 @@ class RoleSelectionPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                  _RoleButton(text: 'I am a User', onPressed: () {}),
+                  _RoleButton(text: 'I am a User', onPressed: () {
+                    currentView = CurrentViewEnum.user;
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => const UserNavigationBar(),
+                    ));
+                  }),
                   const SizedBox(height: 20),
-                  _RoleButton(text: 'I am a Business Owner', onPressed: () {}),
+                  _RoleButton(text: 'I am a Business Owner', onPressed: () {
+                    currentView = CurrentViewEnum.business;
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => const UserNavigationBar(),
+                    ));}),
                   const SizedBox(height: 20),
-                  _RoleButton(text: 'I Represent a Charity', onPressed: () {}),
+                  _RoleButton(text: 'I Represent a Charity', onPressed: () {
+                    currentView = CurrentViewEnum.charity;
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => const UserNavigationBar(),
+                    ));}),
                 ],
               ),
             ),
