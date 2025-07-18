@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'intro_business_page.dart';
 
 class IntroPage extends StatelessWidget {
-  const IntroPage({Key? key, this.onNext}) : super(key: key);
+  const IntroPage({super.key, this.onNext});
 
   final VoidCallback? onNext;
 
