@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_fusion/util/invoice_pdf_generator.dart';
 import '../charts/simple_pie_chart.dart'; // Import your pie chart widget
 import '../theme/app_colors.dart'; // Color definitions
 
@@ -89,7 +90,9 @@ class InvoicePage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await InvoicePdfGenerator.generateDummyPdf(context);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightBlueAccent,
                   padding: const EdgeInsets.symmetric(vertical: 14),

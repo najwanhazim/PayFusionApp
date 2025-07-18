@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const IntroPage(),
+      home: const InvoicePage(),
     );
   }
 }
