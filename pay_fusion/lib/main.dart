@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pay_fusion/enum/current_view_enum.dart';
 import 'package:pay_fusion/pages/intro/intro_page.dart';
 
@@ -6,7 +7,9 @@ import 'package:pay_fusion/pages/intro/intro_page.dart';
 //kan ada button for user/business/charity view, kita boleh set global variable ni
 CurrentViewEnum currentView = CurrentViewEnum.user;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   runApp(const MyApp());
 }
 
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const IntroPage()
+      home: const IntroPage(),
     );
   }
 }

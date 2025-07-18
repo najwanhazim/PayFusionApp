@@ -118,12 +118,8 @@ class _QRScanPageState extends State<QRScanPage> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
                   IconButton(
                     icon: Icon(
                       isFlashOn ? Icons.flash_on : Icons.flash_off,
@@ -288,8 +284,6 @@ class _QRScanPageState extends State<QRScanPage> {
                             ),
                           ],
                         ),
-                        Spacer(),
-                        Icon(Icons.chevron_right, color: Colors.grey[400]),
                       ],
                     ),
                   ),
