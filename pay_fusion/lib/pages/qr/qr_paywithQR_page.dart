@@ -330,7 +330,7 @@ class _QRPayWithQRPageState extends State<QRPayWithQRPage> {
     });
 
     // Simulate payment completion after 10 seconds
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 3), () {
       if (mounted && isQRGenerated) {
         _showPaymentSuccess();
       }
