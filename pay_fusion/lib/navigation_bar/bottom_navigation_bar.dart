@@ -17,12 +17,12 @@ class UserNavigationBar extends StatefulWidget {
 class _UserNavigationBarState extends State<UserNavigationBar> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _pages = <Widget>[
+  List<Widget> get _pages => <Widget>[
     currentView == CurrentViewEnum.user ? HomePageCard() : HomePageBank(),
-
-    //update your pages here
-    Center(child: Text('QR')),
-    currentView == CurrentViewEnum.business ? InvoicePage() : BudgetDonutPage(),
+    const Center(child: Text('QR')),
+    currentView == CurrentViewEnum.business
+        ? const InvoicePage()
+        : const BudgetDonutPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -42,7 +42,8 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
           });
         },
         shape: const CircleBorder(),
-        backgroundColor: _selectedIndex == 1 ? Color(0xFF01BBB9) : Colors.white,
+        backgroundColor:
+            _selectedIndex == 1 ? const Color(0xFF01BBB9) : Colors.white,
         child: Icon(
           Icons.qr_code_scanner,
           color: _selectedIndex == 1 ? Colors.white : Colors.black,
@@ -54,7 +55,7 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Color(0xFF01BBB9),
+        selectedItemColor: const Color(0xFF01BBB9),
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.black,
         items: const <BottomNavigationBarItem>[

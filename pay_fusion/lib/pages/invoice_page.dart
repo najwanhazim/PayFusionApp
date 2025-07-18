@@ -96,6 +96,7 @@ class InvoicePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightBlueAccent,
                   padding: const EdgeInsets.symmetric(vertical: 14),
+                  foregroundColor: Colors.white, // Make text white
                 ),
                 child: const Text('Submit Invoice'),
               ),

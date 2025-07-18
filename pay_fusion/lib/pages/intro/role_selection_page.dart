@@ -28,24 +28,44 @@ class RoleSelectionPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                  _RoleButton(text: 'I am a User', onPressed: () {
-                    currentView = CurrentViewEnum.user;
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => const UserNavigationBar(),
-                    ));
-                  }),
+                  _RoleButton(
+                    text: 'I am a User',
+                    onPressed: () {
+                      currentView = CurrentViewEnum.user;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserNavigationBar(),
+                        ),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 20),
-                  _RoleButton(text: 'I am a Business Owner', onPressed: () {
-                    currentView = CurrentViewEnum.business;
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => const UserNavigationBar(),
-                    ));}),
+                  _RoleButton(
+                    text: 'I am a Business Owner',
+                    onPressed: () {
+                      currentView = CurrentViewEnum.business;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserNavigationBar(),
+                        ),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 20),
-                  _RoleButton(text: 'I Represent a Charity', onPressed: () {
-                    currentView = CurrentViewEnum.charity;
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => const UserNavigationBar(),
-                    ));}),
+                  _RoleButton(
+                    text: 'I Represent a Charity',
+                    onPressed: () {
+                      currentView = CurrentViewEnum.charity;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserNavigationBar(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -70,7 +90,12 @@ class _RoleButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF00FFD0), // Neon/turquoise
+          backgroundColor: const Color.fromARGB(
+            255,
+            11,
+            154,
+            127,
+          ), // Neon/turquoise
           foregroundColor: Colors.white,
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(
@@ -82,4 +107,4 @@ class _RoleButton extends StatelessWidget {
       ),
     );
   }
-} 
+}
