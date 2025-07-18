@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pay_fusion/pages/budget_donut_page.dart';
 import 'package:pay_fusion/enum/current_view_enum.dart';
+import 'package:pay_fusion/pages/business/business_form.dart';
+import 'package:pay_fusion/pages/charity/charity_form.dart';
+import 'package:pay_fusion/pages/charity/charity_list.dart';
 import 'package:pay_fusion/pages/intro/intro_page.dart';
 import 'package:pay_fusion/pages/invoice_page.dart';
 
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const IntroPage(),
+      home: CharityListPage(),
     );
   }
 }
