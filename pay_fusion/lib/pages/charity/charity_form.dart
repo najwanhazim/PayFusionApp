@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_fusion/main.dart';
 
 class CharityFormPage extends StatefulWidget {
   const CharityFormPage({super.key});
@@ -6,17 +7,18 @@ class CharityFormPage extends StatefulWidget {
   _CharityFormPageState createState() => _CharityFormPageState();
 }
 
-class _CharityFormPageState extends State<CharityFormPage> with TickerProviderStateMixin {
+class _CharityFormPageState extends State<CharityFormPage>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _charityNameController = TextEditingController();
   final TextEditingController _ngoNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  
+
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  
+
   String? _certificateFileName;
   String? _taxExemptionFileName;
   bool _isSubmitting = false;
@@ -83,7 +85,10 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  _buildSectionTitle('Organization Details', Icons.business),
+                                  _buildSectionTitle(
+                                    'Organization Details',
+                                    Icons.business,
+                                  ),
                                   const SizedBox(height: 20),
                                   _buildInputField(
                                     'Charity Name',
@@ -143,27 +148,30 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter email address';
                                       }
-                                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                                        return 'Please enter a valid email';
-                                      }
                                       return null;
                                     },
                                   ),
                                   const SizedBox(height: 32),
-                                  _buildSectionTitle('Required Documents', Icons.folder_open),
+                                  _buildSectionTitle(
+                                    'Required Documents',
+                                    Icons.folder_open,
+                                  ),
                                   const SizedBox(height: 20),
                                   _buildFileUploadSection(
                                     'Certificate of Registration',
                                     _certificateFileName,
                                     Icons.file_present,
-                                    onTap: () => _handleFileUpload('certificate'),
+                                    onTap:
+                                        () => _handleFileUpload('certificate'),
                                   ),
                                   const SizedBox(height: 20),
                                   _buildFileUploadSection(
                                     'LHDN Tax Exemption Approval Letter',
                                     _taxExemptionFileName,
                                     Icons.description,
-                                    onTap: () => _handleFileUpload('tax_exemption'),
+                                    onTap:
+                                        () =>
+                                            _handleFileUpload('tax_exemption'),
                                   ),
                                   const SizedBox(height: 40),
                                 ],
@@ -224,10 +232,7 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
           const SizedBox(height: 16),
           const Text(
             'Join our platform to make a positive impact in your community',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14),
             textAlign: TextAlign.center,
           ),
         ],
@@ -251,10 +256,7 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
         const SizedBox(height: 12),
         const Text(
           'Step 1 of 3 - Organization Information',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 12,
-          ),
+          style: TextStyle(color: Colors.white70, fontSize: 12),
         ),
       ],
     );
@@ -288,11 +290,7 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
             color: const Color(0xFF4ECDC4).withOpacity(0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
-            color: const Color(0xFF4ECDC4),
-            size: 20,
-          ),
+          child: Icon(icon, color: const Color(0xFF4ECDC4), size: 20),
         ),
         const SizedBox(width: 12),
         Text(
@@ -331,10 +329,7 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
           decoration: BoxDecoration(
             color: const Color(0xFF1A1D23),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.grey.shade800,
-              width: 1,
-            ),
+            border: Border.all(color: Colors.grey.shade800, width: 1),
           ),
           child: TextFormField(
             controller: controller,
@@ -343,21 +338,14 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
             validator: validator,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              prefixIcon: Icon(
-                icon,
-                color: const Color(0xFF4ECDC4),
-                size: 20,
-              ),
+              prefixIcon: Icon(icon, color: const Color(0xFF4ECDC4), size: 20),
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 16,
               ),
               hintText: 'Enter $label',
-              hintStyle: TextStyle(
-                color: Colors.grey.shade500,
-                fontSize: 14,
-              ),
+              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
             ),
           ),
         ),
@@ -372,7 +360,7 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
     required VoidCallback onTap,
   }) {
     bool hasFile = fileName != null;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -390,7 +378,10 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: hasFile ? const Color(0xFF4ECDC4).withOpacity(0.1) : const Color(0xFF1A1D23),
+              color:
+                  hasFile
+                      ? const Color(0xFF4ECDC4).withOpacity(0.1)
+                      : const Color(0xFF1A1D23),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: hasFile ? const Color(0xFF4ECDC4) : Colors.grey.shade800,
@@ -402,7 +393,10 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: hasFile ? const Color(0xFF4ECDC4) : Colors.grey.shade700,
+                    color:
+                        hasFile
+                            ? const Color(0xFF4ECDC4)
+                            : Colors.grey.shade700,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -419,7 +413,8 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
                       Text(
                         hasFile ? fileName : 'Tap to upload file',
                         style: TextStyle(
-                          color: hasFile ? const Color(0xFF4ECDC4) : Colors.white,
+                          color:
+                              hasFile ? const Color(0xFF4ECDC4) : Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -437,7 +432,8 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
                 ),
                 Icon(
                   hasFile ? Icons.edit : Icons.upload,
-                  color: hasFile ? const Color(0xFF4ECDC4) : Colors.grey.shade500,
+                  color:
+                      hasFile ? const Color(0xFF4ECDC4) : Colors.grey.shade500,
                   size: 20,
                 ),
               ],
@@ -475,35 +471,32 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-        child: _isSubmitting
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
-                ),
-              )
-            : const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.send,
+        child:
+            _isSubmitting
+                ? const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
                     color: Colors.white,
-                    size: 20,
+                    strokeWidth: 2,
                   ),
-                  SizedBox(width: 8),
-                  Text(
-                    'SUBMIT APPLICATION',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
+                )
+                : const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.send, color: Colors.white, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      'SUBMIT APPLICATION',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
       ),
     );
   }
@@ -517,17 +510,15 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
         _taxExemptionFileName = 'tax_exemption_letter.pdf';
       }
     });
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('File uploaded successfully!'),
-        backgroundColor: const Color(0xFF4ECDC4),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
+
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: const Text('File uploaded successfully!'),
+    //     backgroundColor: const Color(0xFF4ECDC4),
+    //     behavior: SnackBarBehavior.floating,
+    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    //   ),
+    // );
   }
 
   void _handleSubmit() async {
@@ -535,30 +526,35 @@ class _CharityFormPageState extends State<CharityFormPage> with TickerProviderSt
       setState(() {
         _isSubmitting = true;
       });
-      
+
       // Simulate API call
       await Future.delayed(const Duration(seconds: 2));
-      
+
       setState(() {
         _isSubmitting = false;
       });
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Row(
-            children: [
-              Icon(Icons.check_circle, color: Colors.white),
-              SizedBox(width: 12),
-              Text('Application submitted successfully!'),
-            ],
-          ),
-          backgroundColor: const Color(0xFF4ECDC4),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
+
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: const Row(
+      //       children: [
+      //         Icon(Icons.check_circle, color: Colors.white),
+      //         SizedBox(width: 12),
+      //         Text('Application submitted successfully!'),
+      //       ],
+      //     ),
+      //     backgroundColor: const Color(0xFF4ECDC4),
+      //     behavior: SnackBarBehavior.floating,
+      //     shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.circular(12),
+      //     ),
+      //   ),
+      // );
+
+      hasIsiCharity = true;
+      if (mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 }

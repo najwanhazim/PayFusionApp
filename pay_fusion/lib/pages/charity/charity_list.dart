@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pay_fusion/main.dart';
+import 'package:pay_fusion/pages/invoice_page.dart';
 
 class CharityListPage extends StatefulWidget {
   @override
   _CharityListPageState createState() => _CharityListPageState();
 }
 
-class _CharityListPageState extends State<CharityListPage> with TickerProviderStateMixin {
+class _CharityListPageState extends State<CharityListPage>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  
+
   final TextEditingController _searchController = TextEditingController();
   List<CharityItem> filteredCharities = [];
   String selectedCategory = 'All';
@@ -18,7 +21,8 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
   final List<CharityItem> charities = [
     CharityItem(
       name: 'Hope Foundation',
-      description: 'Providing education and healthcare to underprivileged children across Malaysia.',
+      description:
+          'Providing education and healthcare to underprivileged children across Malaysia.',
       category: 'Education',
       color: const Color(0xFF6C5CE7),
       icon: Icons.school,
@@ -29,7 +33,8 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
     ),
     CharityItem(
       name: 'Green Earth Initiative',
-      description: 'Environmental conservation and sustainable development projects.',
+      description:
+          'Environmental conservation and sustainable development projects.',
       category: 'Environment',
       color: const Color(0xFF00B894),
       icon: Icons.eco,
@@ -51,7 +56,8 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
     ),
     CharityItem(
       name: 'Food for All',
-      description: 'Eliminating hunger through food distribution and nutrition programs.',
+      description:
+          'Eliminating hunger through food distribution and nutrition programs.',
       category: 'Food Security',
       color: const Color(0xFFFFD93D),
       icon: Icons.restaurant,
@@ -62,7 +68,8 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
     ),
     CharityItem(
       name: 'Build Tomorrow',
-      description: 'Housing and infrastructure development for low-income families.',
+      description:
+          'Housing and infrastructure development for low-income families.',
       category: 'Housing',
       color: const Color(0xFF74B9FF),
       icon: Icons.home,
@@ -73,7 +80,8 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
     ),
     CharityItem(
       name: 'Animal Rescue Center',
-      description: 'Rescuing and rehabilitating stray animals across urban areas.',
+      description:
+          'Rescuing and rehabilitating stray animals across urban areas.',
       category: 'Animal Welfare',
       color: const Color(0xFFFF7675),
       icon: Icons.pets,
@@ -98,21 +106,23 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
   void initState() {
     super.initState();
     filteredCharities = charities;
-    
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
-    
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack));
-    
+    ).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack),
+    );
+
     _animationController.forward();
   }
 
@@ -125,12 +135,20 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
 
   void _filterCharities() {
     setState(() {
-      filteredCharities = charities.where((charity) {
-        final matchesSearch = charity.name.toLowerCase().contains(_searchController.text.toLowerCase()) ||
-            charity.description.toLowerCase().contains(_searchController.text.toLowerCase());
-        final matchesCategory = selectedCategory == 'All' || charity.category == selectedCategory;
-        return matchesSearch && matchesCategory;
-      }).toList();
+      filteredCharities =
+          charities.where((charity) {
+            final matchesSearch =
+                charity.name.toLowerCase().contains(
+                  _searchController.text.toLowerCase(),
+                ) ||
+                charity.description.toLowerCase().contains(
+                  _searchController.text.toLowerCase(),
+                );
+            final matchesCategory =
+                selectedCategory == 'All' ||
+                charity.category == selectedCategory;
+            return matchesSearch && matchesCategory;
+          }).toList();
     });
   }
 
@@ -149,9 +167,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
                 _buildSearchAndFilter(),
                 _buildCategoryFilter(),
                 _buildCharityStats(),
-                Expanded(
-                  child: _buildCharityList(),
-                ),
+                Expanded(child: _buildCharityList()),
                 _buildActionButton(),
               ],
             ),
@@ -254,10 +270,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
               onPressed: () {
                 // Filter options
               },
-              icon: const Icon(
-                Icons.tune,
-                color: Color(0xFF4ECDC4),
-              ),
+              icon: const Icon(Icons.tune, color: Color(0xFF4ECDC4)),
             ),
           ),
         ],
@@ -276,7 +289,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
         itemBuilder: (context, index) {
           final category = categories[index];
           final isSelected = selectedCategory == category;
-          
+
           return Container(
             margin: const EdgeInsets.only(right: 12),
             child: GestureDetector(
@@ -287,12 +300,21 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
                 _filterCharities();
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF4ECDC4) : const Color(0xFF1A1D23),
+                  color:
+                      isSelected
+                          ? const Color(0xFF4ECDC4)
+                          : const Color(0xFF1A1D23),
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
-                    color: isSelected ? const Color(0xFF4ECDC4) : Colors.grey.shade800,
+                    color:
+                        isSelected
+                            ? const Color(0xFF4ECDC4)
+                            : Colors.grey.shade800,
                   ),
                 ),
                 child: Text(
@@ -350,10 +372,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
         const SizedBox(height: 4),
         Text(
           label,
-          style: TextStyle(
-            color: Colors.grey.shade400,
-            fontSize: 12,
-          ),
+          style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
         ),
       ],
     );
@@ -362,27 +381,31 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
   Widget _buildCharityList() {
     return Container(
       margin: const EdgeInsets.all(24),
-      child: filteredCharities.isEmpty
-          ? _buildEmptyState()
-          : ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: filteredCharities.length,
-              itemBuilder: (context, index) {
-                return TweenAnimationBuilder<double>(
-                  duration: Duration(milliseconds: 300 + (index * 100)),
-                  tween: Tween<double>(begin: 0, end: 1),
-                  builder: (context, value, child) {
-                    return Transform.translate(
-                      offset: Offset(0, 20 * (1 - value)),
-                      child: Opacity(
-                        opacity: value,
-                        child: _buildCharityItem(filteredCharities[index], index),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+      child:
+          filteredCharities.isEmpty
+              ? _buildEmptyState()
+              : ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: filteredCharities.length,
+                itemBuilder: (context, index) {
+                  return TweenAnimationBuilder<double>(
+                    duration: Duration(milliseconds: 300 + (index * 100)),
+                    tween: Tween<double>(begin: 0, end: 1),
+                    builder: (context, value, child) {
+                      return Transform.translate(
+                        offset: Offset(0, 20 * (1 - value)),
+                        child: Opacity(
+                          opacity: value,
+                          child: _buildCharityItem(
+                            filteredCharities[index],
+                            index,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
     );
   }
 
@@ -391,11 +414,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.search_off,
-            size: 64,
-            color: Colors.grey.shade600,
-          ),
+          Icon(Icons.search_off, size: 64, color: Colors.grey.shade600),
           const SizedBox(height: 16),
           Text(
             'No charities found',
@@ -408,10 +427,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
           const SizedBox(height: 8),
           Text(
             'Try adjusting your search or filter',
-            style: TextStyle(
-              color: Colors.grey.shade600,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
           ),
         ],
       ),
@@ -420,7 +436,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
 
   Widget _buildCharityItem(CharityItem charity, int index) {
     final isSelected = selectedCharityIndex == index;
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: GestureDetector(
@@ -433,21 +449,24 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
           duration: const Duration(milliseconds: 300),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFF1A1D23) : const Color(0xFF0F1115),
+            color:
+                isSelected ? const Color(0xFF1A1D23) : const Color(0xFF0F1115),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: isSelected ? const Color(0xFF4ECDC4) : Colors.grey.shade800,
+              color:
+                  isSelected ? const Color(0xFF4ECDC4) : Colors.grey.shade800,
               width: isSelected ? 2 : 1,
             ),
-            boxShadow: isSelected
-                ? [
-                    BoxShadow(
-                      color: const Color(0xFF4ECDC4).withOpacity(0.2),
-                      blurRadius: 20,
-                      offset: const Offset(0, 8),
-                    ),
-                  ]
-                : null,
+            boxShadow:
+                isSelected
+                    ? [
+                      BoxShadow(
+                        color: const Color(0xFF4ECDC4).withOpacity(0.2),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ]
+                    : null,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,11 +487,7 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
                         ),
                       ],
                     ),
-                    child: Icon(
-                      charity.icon,
-                      color: Colors.white,
-                      size: 28,
-                    ),
+                    child: Icon(charity.icon, color: Colors.white, size: 28),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -489,7 +504,10 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
                         ),
                         const SizedBox(height: 4),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: charity.color.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(12),
@@ -608,18 +626,11 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            size: 14,
-            color: Colors.grey.shade400,
-          ),
+          Icon(icon, size: 14, color: Colors.grey.shade400),
           const SizedBox(width: 4),
           Text(
             text,
-            style: TextStyle(
-              color: Colors.grey.shade400,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
           ),
         ],
       ),
@@ -639,11 +650,17 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
               decoration: BoxDecoration(
                 color: const Color(0xFF4ECDC4).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFF4ECDC4).withOpacity(0.3)),
+                border: Border.all(
+                  color: const Color(0xFF4ECDC4).withOpacity(0.3),
+                ),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.info_outline, color: Color(0xFF4ECDC4), size: 20),
+                  const Icon(
+                    Icons.info_outline,
+                    color: Color(0xFF4ECDC4),
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -661,51 +678,62 @@ class _CharityListPageState extends State<CharityListPage> with TickerProviderSt
             width: double.infinity,
             height: 56,
             decoration: BoxDecoration(
-              gradient: selectedCharityIndex != null
-                  ? const LinearGradient(
-                      colors: [Color(0xFF4ECDC4), Color(0xFF44B5A0)],
-                    )
-                  : null,
+              gradient:
+                  selectedCharityIndex != null
+                      ? const LinearGradient(
+                        colors: [Color(0xFF4ECDC4), Color(0xFF44B5A0)],
+                      )
+                      : null,
               color: selectedCharityIndex == null ? Colors.grey.shade700 : null,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: selectedCharityIndex != null
-                  ? [
-                      BoxShadow(
-                        color: const Color(0xFF4ECDC4).withOpacity(0.3),
-                        blurRadius: 20,
-                        offset: const Offset(0, 8),
-                      ),
-                    ]
-                  : null,
+              boxShadow:
+                  selectedCharityIndex != null
+                      ? [
+                        BoxShadow(
+                          color: const Color(0xFF4ECDC4).withOpacity(0.3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ]
+                      : null,
             ),
             child: TextButton(
-              onPressed: selectedCharityIndex != null
-                  ? () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Proceeding with ${filteredCharities[selectedCharityIndex!].name}',
-                          ),
-                          backgroundColor: const Color(0xFF4ECDC4),
-                          behavior: SnackBarBehavior.floating,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      );
-                    }
-                  : null,
+              onPressed:
+                  selectedCharityIndex != null
+                      ? () {
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(
+                        //       'Proceeding with ${filteredCharities[selectedCharityIndex!].name}',
+                        //     ),
+                        //     backgroundColor: const Color(0xFF4ECDC4),
+                        //     behavior: SnackBarBehavior.floating,
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(12),
+                        //     ),
+                        //   ),
+                        // );
+                        hasIsiBusiness = true;
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
+                      : null,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    selectedCharityIndex != null ? Icons.arrow_forward : Icons.info_outline,
+                    selectedCharityIndex != null
+                        ? Icons.arrow_forward
+                        : Icons.info_outline,
                     color: Colors.white,
                     size: 20,
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    selectedCharityIndex != null ? 'PROCEED WITH DONATION' : 'SELECT A CHARITY',
+                    selectedCharityIndex != null
+                        ? 'PROCEED WITH DONATION'
+                        : 'SELECT A CHARITY',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

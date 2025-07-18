@@ -11,6 +11,8 @@ import 'package:pay_fusion/pages/invoice_page.dart';
 //global variable for view, for easy navigation later on
 //kan ada button for user/business/charity view, kita boleh set global variable ni
 CurrentViewEnum currentView = CurrentViewEnum.user;
+bool hasIsiBusiness = false;
+bool hasIsiCharity = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: CharityListPage(),
+      home: IntroPage(),
     );
   }
 }

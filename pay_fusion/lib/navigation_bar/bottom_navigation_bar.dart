@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pay_fusion/pages/budget_donut_page.dart';
 import 'package:pay_fusion/enum/current_view_enum.dart';
 import 'package:pay_fusion/main.dart';
+import 'package:pay_fusion/pages/business/business_form.dart';
+import 'package:pay_fusion/pages/charity/charity_form.dart';
 import 'package:pay_fusion/pages/ekyc_page.dart';
 import 'package:pay_fusion/pages/home_page_bank.dart';
 import 'package:pay_fusion/pages/home_page_card.dart';
@@ -27,6 +29,43 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
         : const BudgetDonutPage(),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _showProfilePrompt({
+  required String title,
+  required String message,
+  required Widget nextPage,
+}) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the dialog
+          },
+          child: const Text("Cancel"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the dialog
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => nextPage),
+            );
+          },
+          child: const Text("Continue"),
+        ),
+      ],
+    ),
+  );
+}
+
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -35,12 +74,28 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    if (_selectedIndex == 2) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (currentView == CurrentViewEnum.business && hasIsiBusiness == false) {
+      _showProfilePrompt(
+        title: "Complete Your Business Profile",
+        message: "Please fill out the business form to continue.",
+        nextPage: const BusinessFormPage(),
+      );
+    } else if (currentView == CurrentViewEnum.charity && hasIsiCharity == false) {
+      _showProfilePrompt(
+        title: "Complete Your Charity Profile",
+        message: "Please fill out the charity form to continue.",
+        nextPage: const CharityFormPage(),
+      );
+    }
+  });
+}
+
     return Scaffold(
       body: _pages[_selectedIndex],
-      // Use a Stack to allow two floating buttons: center (QR) and bottom right (AI Chat)
       floatingActionButton: Stack(
         children: [
-          // Center docked QR button (existing)
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -53,7 +108,9 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
                 },
                 shape: const CircleBorder(),
                 backgroundColor:
-                    _selectedIndex == 1 ? Color(0xFF01BBB9) : Colors.white,
+                    _selectedIndex == 1
+                        ? const Color(0xFF01BBB9)
+                        : Colors.white,
                 child: Icon(
                   Icons.qr_code_scanner,
                   color: _selectedIndex == 1 ? Colors.white : Colors.black,
@@ -62,7 +119,6 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
               ),
             ),
           ),
-          // Bottom right AI Chatbot button
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
@@ -70,13 +126,13 @@ class _UserNavigationBarState extends State<UserNavigationBar> {
               child: FloatingActionButton(
                 heroTag: 'aiChat',
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const AiChatPage()),
-                  );
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (_) => const AiChatPage()));
                 },
                 shape: const CircleBorder(),
                 backgroundColor: Colors.white,
-                child: Icon(
+                child: const Icon(
                   Icons.chat_bubble_outline,
                   color: Color(0xFF01BBB9),
                   size: 28.0,

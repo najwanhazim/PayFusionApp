@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pay_fusion/pages/charity/charity_form.dart';
+import 'package:pay_fusion/pages/charity/charity_list.dart';
 
 class BusinessFormPage extends StatefulWidget {
   const BusinessFormPage({super.key});
@@ -7,18 +9,19 @@ class BusinessFormPage extends StatefulWidget {
   _BusinessFormPageState createState() => _BusinessFormPageState();
 }
 
-class _BusinessFormPageState extends State<BusinessFormPage> with TickerProviderStateMixin {
+class _BusinessFormPageState extends State<BusinessFormPage>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _businessNameController = TextEditingController();
   final TextEditingController _tinNumberController = TextEditingController();
   final TextEditingController _brnNumberController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _businessTypeController = TextEditingController();
-  
+
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
   bool _isSubmitting = false;
-  
+
   final List<String> _uploadedFiles = [];
 
   @override
@@ -211,9 +214,7 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
     return Container(
       padding: const EdgeInsets.only(bottom: 8),
       decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Color(0xFF4ECDC4), width: 2),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFF4ECDC4), width: 2)),
       ),
       child: Text(
         title,
@@ -260,12 +261,17 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
           child: TextFormField(
             controller: controller,
             keyboardType: keyboardType,
+            style: TextStyle(color: Colors.black),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
               hintText: hint,
               hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
               prefixIcon: Icon(icon, color: const Color(0xFF4ECDC4), size: 20),
+              errorStyle: TextStyle(color: Colors.red),
             ),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
@@ -281,7 +287,7 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
 
   Widget _buildFileUploadSection(String title, String fileKey, IconData icon) {
     bool isUploaded = _uploadedFiles.contains(fileKey);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -297,13 +303,19 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
         GestureDetector(
           onTap: () => _handleFileUpload(fileKey),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 200),
             height: 60,
             decoration: BoxDecoration(
-              color: isUploaded ? const Color(0xFF4ECDC4).withOpacity(0.1) : const Color(0xFF2A2D35),
+              color:
+                  isUploaded
+                      ? const Color(0xFF4ECDC4).withOpacity(0.1)
+                      : const Color(0xFF2A2D35),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isUploaded ? const Color(0xFF4ECDC4) : Colors.white.withOpacity(0.2),
+                color:
+                    isUploaded
+                        ? const Color(0xFF4ECDC4)
+                        : Colors.white.withOpacity(0.2),
                 width: isUploaded ? 2 : 1,
               ),
             ),
@@ -318,11 +330,15 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    isUploaded ? 'File uploaded successfully' : 'Tap to upload file',
+                    isUploaded
+                        ? 'File uploaded successfully'
+                        : 'Tap to upload file',
                     style: TextStyle(
-                      color: isUploaded ? const Color(0xFF4ECDC4) : Colors.white70,
+                      color:
+                          isUploaded ? const Color(0xFF4ECDC4) : Colors.white70,
                       fontSize: 14,
-                      fontWeight: isUploaded ? FontWeight.w600 : FontWeight.w400,
+                      fontWeight:
+                          isUploaded ? FontWeight.w600 : FontWeight.w400,
                     ),
                   ),
                 ),
@@ -365,35 +381,32 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
           borderRadius: BorderRadius.circular(16),
           onTap: _isSubmitting ? null : _handleSubmit,
           child: Center(
-            child: _isSubmitting
-                ? const SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.send,
-                        color: Colors.white,
-                        size: 20,
+            child:
+                _isSubmitting
+                    ? const SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        text,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.5,
+                    )
+                    : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.send, color: Colors.white, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          text,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
           ),
         ),
       ),
@@ -402,7 +415,7 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
 
   void _handleFileUpload(String fileKey) {
     HapticFeedback.lightImpact();
-    
+
     // Simulate file upload
     setState(() {
       if (_uploadedFiles.contains(fileKey)) {
@@ -411,21 +424,22 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
         _uploadedFiles.add(fileKey);
       }
     });
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _uploadedFiles.contains(fileKey) 
-              ? 'File uploaded successfully' 
-              : 'File removed',
-        ),
-        backgroundColor: _uploadedFiles.contains(fileKey) 
-            ? const Color(0xFF4ECDC4) 
-            : Colors.orange,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-    );
+
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text(
+    //       _uploadedFiles.contains(fileKey)
+    //           ? 'File uploaded successfully'
+    //           : 'File removed',
+    //     ),
+    //     backgroundColor:
+    //         _uploadedFiles.contains(fileKey)
+    //             ? const Color(0xFF4ECDC4)
+    //             : Colors.orange,
+    //     behavior: SnackBarBehavior.floating,
+    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    //   ),
+    // );
   }
 
   void _handleSubmit() async {
@@ -445,42 +459,57 @@ class _BusinessFormPageState extends State<BusinessFormPage> with TickerProvider
     }
 
     setState(() => _isSubmitting = true);
-    
+
     // Simulate API call
     await Future.delayed(const Duration(seconds: 2));
-    
+
     setState(() => _isSubmitting = false);
-    
+
     // Show success dialog
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1D23),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Row(
-          children: [
-            Icon(Icons.check_circle, color: Color(0xFF4ECDC4), size: 28),
-            SizedBox(width: 12),
-            Text(
-              'Success!',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+      builder:
+          (context) => AlertDialog(
+            backgroundColor: const Color(0xFF1A1D23),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-          ],
-        ),
-        content: const Text(
-          'Your business application has been submitted successfully. We will review your application and get back to you within 3-5 business days.',
-          style: TextStyle(color: Colors.white70),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text(
-              'OK',
-              style: TextStyle(color: Color(0xFF4ECDC4), fontWeight: FontWeight.w600),
+            title: const Row(
+              children: [
+                Icon(Icons.check_circle, color: Color(0xFF4ECDC4), size: 28),
+                SizedBox(width: 12),
+                Text(
+                  'Success!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
+            content: const Text(
+              'Your business application has been submitted successfully. We will review your application and get back to you within 3-5 business days.',
+              style: TextStyle(color: Colors.white70),
+            ),
+            actions: [
+              TextButton(
+                onPressed:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CharityListPage(),
+                      ),
+                    ),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    color: Color(0xFF4ECDC4),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }
